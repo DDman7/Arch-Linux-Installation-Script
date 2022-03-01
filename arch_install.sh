@@ -31,3 +31,5 @@ pacstrap /mnt base linux # Download and install the specified software packages 
 genfstab -U /mnt >> /mnt/etc/fstab # Generate an fstab file to define how disk partitions, block devices or remote file systems are mounted into the system.
 
 arch-chroot /mnt # Change root to the specified directory
+
+shutdown now # Shut down the system after finishing with chroot
