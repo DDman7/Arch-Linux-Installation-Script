@@ -30,6 +30,24 @@ mount /dev/vda2 /mnt # Mount the root partition to /mnt
 pacstrap /mnt base linux # Download and install the specified software packages to the root partition mounted at /mnt
 genfstab -U /mnt >> /mnt/etc/fstab # Generate an fstab file to define how disk partitions, block devices or remote file systems are mounted into the system.
 
-arch-chroot /mnt # Change root to the specified directory
+(
+echo "timedatectl set-timezone Australia/Sydney" # Set the time zone
+echo "hwclock --systohc" # To generate /etc/adjtime
+echo "locale-gen" # Generate locales
+echo "touch /etc/locale.conf" # Create the locale.conf file
+echo "echo LANG=en_AU.UTF-8 >> /etc/locale.conf" # Append the specified text to the specified file.
+echo "export LANG=en_AU.UTF-8" # No idea
+echo "echo david-danyal > /etc/hostname" # Set my network hostname
+echo -e "(\necho 1999\necho 1999\n) | passwd" #Setting the root user password
+echo "pacman -S --noconfirm grub efibootmgr" # Downloading and installing the boot loader
+echo "mkdir /boot/efi" # Create a directory to mount the EFI partition onto
+echo "mount /dev/vda1 /boot/efi" # Mount the EFI partition to the specified directory
+echo "grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi" # Install the grub boot loader
+echo "grub-mkconfig -o /boot/grub/grub.cfg" # Create the grub config file
+echo "pacman -S --noconfirm xorg" # Download and install the xorg display server
+echo "pacman -S --noconfirm xfce4 xfce4-goodies lxdm networkmanager" # Download and install extra software
+echo "systemctl enable NetworkManager.service" # Enable the networkmanager service with systemd
+echo "systemctl enable lxdm.service" # Enable the lxdm display manager service with systemd
+) | arch-chroot /mnt # Change root to the specified directory
 
 shutdown now # Shut down the system after finishing with chroot
