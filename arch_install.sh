@@ -22,7 +22,7 @@ mkfs.fat -F32 /dev/vda1 && mkfs.ext4 /dev/vda2 # Create file systems for each pa
 
 pacman -Syy # Sync the pacman repo
 
-pacman -S reflector # Download and install the reflector tool
+pacman -S reflector --noconfirm # Download and install the reflector tool
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak # Create a backup of the default mirror list
 reflector -c "AU" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist # Use the best mirror I guess?
 
