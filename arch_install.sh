@@ -48,7 +48,8 @@ echo "pacman -S --noconfirm xorg" # Download and install the xorg display server
 echo "pacman -S --noconfirm xfce4 xfce4-goodies lxdm networkmanager sudo nano" # Download and install extra software
 echo "systemctl enable NetworkManager.service" # Enable the networkmanager service with systemd
 echo "systemctl enable lxdm.service" # Enable the lxdm display manager service with systemd
-echo "useradd -g users -G wheel,audio,video david-user" # Create a non-root user and add them to the specified groups
+echo "useradd david-user -m -g users -G wheel,audio,video -d /home/david-user" # Create a non-root user and add them to the specified groups
+echo -e "(\necho 1999\necho 1999\n) | passwd david-user" #Setting the root user password
 ) | arch-chroot /mnt # Change root to the specified directory
 
 shutdown now # Shut down the system after finishing with chroot
