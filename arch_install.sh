@@ -45,9 +45,10 @@ echo "mount /dev/vda1 /boot/efi" # Mount the EFI partition to the specified dire
 echo "grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi" # Install the grub boot loader
 echo "grub-mkconfig -o /boot/grub/grub.cfg" # Create the grub config file
 echo "pacman -S --noconfirm xorg" # Download and install the xorg display server
-echo "pacman -S --noconfirm xfce4 xfce4-goodies lxdm networkmanager" # Download and install extra software
+echo "pacman -S --noconfirm xfce4 xfce4-goodies lxdm networkmanager sudo nano" # Download and install extra software
 echo "systemctl enable NetworkManager.service" # Enable the networkmanager service with systemd
 echo "systemctl enable lxdm.service" # Enable the lxdm display manager service with systemd
+echo "useradd -g users -G wheel,audio,video david-user" # Create a non-root user and add them to the specified groups
 ) | arch-chroot /mnt # Change root to the specified directory
 
 shutdown now # Shut down the system after finishing with chroot
